@@ -16,8 +16,8 @@ public class DbOperations {
 	ToFrontInformation toFront;
 	
 	public ToFrontInformation Add(FromFront data) {
-		toFront = innerOperations.check(data);
-		return null;
+		toFront = innerOperations.checkAndAdd(data);
+		return toFront;
 	}
 	
 	

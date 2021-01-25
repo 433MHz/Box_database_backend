@@ -29,13 +29,9 @@ public class JsonController {
 		fromFront.setBoxNum(boxNum);
 		fromFront.setItemName(itemName);
 		fromFront.setItemDesc(itemDesc);
-		fromFront.setAmount(amount);
+		fromFront.setAmount(amount);				
 		
-		toFrontInformation.setMessage("Wysłane");
-		toFrontInformation.setOk(true);
-				
-		
-		return toFrontInformation;
+		return dbOperations.Add(fromFront);
 	}
 	
 	@Autowired
