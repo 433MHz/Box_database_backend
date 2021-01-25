@@ -1,4 +1,4 @@
-package pl.krystian.Box_database_backend.app.JDBC;
+package pl.krystian.Box_database_backend.app.add;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JDBC {
+class JDBC {
 	private Connection conn;
 	private Statement stmt;
 	private ResultSet rs;

@@ -1,23 +1,28 @@
 package pl.krystian.Box_database_backend.app.add;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import pl.krystian.Box_database_backend.app.objects.FromFront;
 import pl.krystian.Box_database_backend.app.objects.ToFrontInformation;
 
-public class Add {
+@Component
+public class DbOperations {
 	
 	@Autowired
-	Filter filter;
+	InnerOperations innerOperations;
 	
 	@Autowired
 	ToFrontInformation toFront;
 	
-	public ToFrontInformation add(FromFront data) {
-		
-		toFront = filter.check(data);
-		
+	public ToFrontInformation Add(FromFront data) {
+		toFront = innerOperations.check(data);
 		return null;
+	}
+	
+	
+	public int BoxCount() {
+		return innerOperations.CheckBoxesCount();
 	}
 
 }
