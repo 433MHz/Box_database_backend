@@ -1,5 +1,7 @@
 package pl.krystian.Box_database_backend.app;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.krystian.Box_database_backend.app.add.DbOperations;
 import pl.krystian.Box_database_backend.app.objects.BoxesCount;
 import pl.krystian.Box_database_backend.app.objects.FromFront;
+import pl.krystian.Box_database_backend.app.objects.ToFrontData;
 import pl.krystian.Box_database_backend.app.objects.ToFrontInformation;
 
 @RestController
@@ -39,7 +42,12 @@ public class JsonController {
 	
 	@GetMapping("/count")
 	public BoxesCount BoxCount() {
-		boxesCount.setCount(dbOperations.BoxCount());
+		boxesCount.setBoxes(dbOperations.BoxCount());
 		return boxesCount;
+	}
+
+	@GetMapping("/getAll")
+	public ArrayList<ToFrontData> getAll(){
+		return dbOperations.getAll();
 	}
 }

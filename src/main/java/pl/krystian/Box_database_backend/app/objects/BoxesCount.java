@@ -4,13 +4,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BoxesCount {
-	private int count;
+	private int boxes;
 
-	public int getCount() {
-		return count;
+	public int getBoxes() {
+		return boxes;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setBoxes(int boxes) {
+		this.boxes = boxes;
 	}
 }

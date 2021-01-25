@@ -6,10 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pl.krystian.Box_database_backend.app.objects.FromFront;
+import pl.krystian.Box_database_backend.app.objects.ToFrontData;
 
 @Component
 class JDBC {
@@ -99,5 +102,33 @@ class JDBC {
 			Disconnect();
 		}
 		return isSended;
+	}
+
+	@Autowired
+	ToFrontData toFrontData;
+	
+	public ArrayList<ToFrontData> getAll() {
+		Connect();
+		String query = "SELECT i.id, i.name AS itemName, i.description AS itemDescription, i.category, i.amount, b.name AS boxName, b.description AS boxDescription FROM items AS i INNER JOIN boxes as b ON i.box_id = b.id ORDER BY i.id ASC;";
+		ArrayList<ToFrontData> list = new ArrayList<ToFrontData>();
+		try {
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				int id = rs.getInt(1);
+				String iName = rs.getString(2);
+				String iDesc = rs.getString(3);
+				String iCategory = rs.getString(4);
+				int iAmount = rs.getInt(5);
+				String bName = rs.getString(6);
+				String bDesc = rs.getString(7);
+				
+				toFrontData.setAll(id, iName, iDesc, iCategory, iAmount, bName, bDesc);
+				list.add(toFrontData);
+				toFrontData = new ToFrontData();
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		finally {Disconnect();}
+		return list;
 	}
 }
