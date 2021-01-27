@@ -1,13 +1,13 @@
-package pl.krystian.Box_database_backend.app;
+package pl.krystian.Box_database_backend;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.cors.CorsConfiguration;
 
 import pl.krystian.Box_database_backend.app.add.DbOperations;
 import pl.krystian.Box_database_backend.app.objects.BoxesCount;
@@ -18,8 +18,6 @@ import pl.krystian.Box_database_backend.app.objects.ToFrontInformation;
 @RestController
 public class JsonController {
 	
-	@Autowired
-	FromFront fromFront;
 	
 	@Autowired
 	ToFrontInformation toFrontInformation;
@@ -27,27 +25,24 @@ public class JsonController {
 	@Autowired
 	DbOperations dbOperations;
 
-	@PostMapping("/add")
-	public ToFrontInformation addPage(@RequestParam int boxNum, @RequestParam String itemName, @RequestParam String itemDesc, @RequestParam int amount) {
-		
-		fromFront.setBoxNum(boxNum);
-		fromFront.setItemName(itemName);
-		fromFront.setItemDesc(itemDesc);
-		fromFront.setAmount(amount);				
-		
+	@CrossOrigin
+	@PostMapping("add")
+	public ToFrontInformation addPage(@RequestBody FromFront fromFront) {
 		return dbOperations.Add(fromFront);
 	}
 	
 	@Autowired
 	BoxesCount boxesCount;
 	
-	@GetMapping("/count")
+	@CrossOrigin
+	@GetMapping("count")
 	public BoxesCount BoxCount() {
 		boxesCount.setBoxes(dbOperations.BoxCount());
 		return boxesCount;
 	}
 
-	@GetMapping("/getAll")
+	@CrossOrigin
+	@GetMapping("getAll")
 	public ArrayList<ToFrontData> getAll(){
 		return dbOperations.getAll();
 	}
