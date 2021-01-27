@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.cors.CorsConfiguration;
 
 import pl.krystian.Box_database_backend.app.add.DbOperations;
 import pl.krystian.Box_database_backend.app.objects.BoxesCount;
@@ -50,4 +51,5 @@ public class JsonController {
 	public ArrayList<ToFrontData> getAll(){
 		return dbOperations.getAll();
 	}
+	
 }
